@@ -14,7 +14,6 @@ class MainWindow(QMainWindow):
 
         self.tbCL = QTextEdit(self)
         self.tbCL.setGeometry(50, 50, 300, 300)
-        #self.tbCL.setAlignment(Qt.AlignTop | Qt.AlignLeft)
         self.tbCL.installEventFilter(self)
 
     def toggle_fullscreen(self):

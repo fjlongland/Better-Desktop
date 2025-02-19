@@ -1,5 +1,6 @@
 from PyQt5.QtCore import Qt
 
+
 def btnFullScreen(window):
     if window.isFullScreen():
         window.showNormal()
@@ -7,5 +8,12 @@ def btnFullScreen(window):
         window.showFullScreen()
 
 def execute(window):
-        print("Enter Key pressed! Running script.")
-        # Add your script logic here
+        
+    text = window.tbCL.toPlainText()
+    lastLine = text.split("\n")[-1]
+
+    window.tbCL.append("running script...")
+    window.tbCL.append("")
+
+    print(lastLine)
+        
