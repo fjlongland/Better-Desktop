@@ -14,6 +14,10 @@ def execute(window):
 
     window.tbCL.append("running script...")
     window.tbCL.append("")
+    window.tbCL.append("")
+    window.tbCL.insertPlainText("./Desktop ~ ")
 
     print(lastLine)
+
+
         
