@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
         self.tbCL = QTextEdit(self)
         self.tbCL.setGeometry(50, 50, 300, 300)
         self.tbCL.installEventFilter(self)
-        self.tbCL.setPlainText("./Desktop ~ ")
+        self.tbCL.setPlainText("./Desktop ~")
 
         self.vLinel = QFrame(self)
         self.vLinel.setFrameShape(QFrame.VLine)
