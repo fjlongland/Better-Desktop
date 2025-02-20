@@ -1,6 +1,7 @@
 import sys 
 from PyQt5.QtWidgets import QApplication
 from .frontend import MainWindow
+from .utils import listWindows
 
 def main():
 
@@ -14,4 +15,5 @@ def main():
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
+    listWindows()
     main()

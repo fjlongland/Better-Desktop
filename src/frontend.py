@@ -6,34 +6,50 @@ from .utils import btnFullScreen, execute
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
         self.setWindowTitle("Better Desktop")
         self.setWindowIcon(QIcon("src/graphics/lolfunny.png"))
 
+#//////////////////////////////////////////////////////////////////////////////////////
+
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
-
         layout = QVBoxLayout(central_widget)
 
+#/////////////////////////////////////////////////////////////////////////////////////
+
         top_layout = QHBoxLayout()
+
+        top_right_layout = QVBoxLayout()
 
         self.btnToggle = QPushButton("toggle", self)
         self.btnToggle.clicked.connect(self.toggle_fullscreen)
         self.btnToggle.setFixedWidth(100)
         self.btnToggle.setFixedHeight(40)
 
-        top_layout.addStretch()
-        top_layout.addWidget(self.btnToggle)
-
-        layout2 = QHBoxLayout()
-
         self.btnClose = QPushButton("close", self)
         self.btnClose.clicked.connect(self.close_clicked)
         self.btnClose.setFixedWidth(100)
         self.btnClose.setFixedHeight(40)
 
-        layout2.addStretch()
-        layout2.addWidget(self.btnClose)
+        top_right_layout.addWidget(self.btnToggle)
+        top_right_layout.addWidget(self.btnClose)
 
+        self.vLinet = QFrame(self)
+        self.vLinet.setFrameShape(QFrame.VLine)
+        self.vLinet.setFrameShadow(QFrame.Sunken)
+
+        top_layout.addStretch()
+        top_layout.addWidget(self.vLinet)
+        top_layout.addLayout(top_right_layout)
+
+#//////////////////////////////////////////////////////////////////////////////////////////////////
+
+        self.hLine = QFrame(self)
+        self.hLine.setFrameShape(QFrame.HLine)
+        self.hLine.setFrameShadow(QFrame.Sunken)
+
+#/////////////////////////////////////////////////////////////////////////////////////////////////
 
         bottom_layout = QHBoxLayout()
 
@@ -56,17 +72,14 @@ class MainWindow(QMainWindow):
         bottom_layout.addWidget(self.vLiner)
         bottom_layout.addStretch()
 
-        self.hLine = QFrame(self)
-        self.hLine.setFrameShape(QFrame.HLine)
-        self.hLine.setFrameShadow(QFrame.Sunken)
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         layout.addLayout(top_layout)
-        layout.addLayout(layout2)
         layout.addStretch()
         layout.addWidget(self.hLine)
         layout.addLayout(bottom_layout)
      
-
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     def toggle_fullscreen(self):
         btnFullScreen(self)
