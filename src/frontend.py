@@ -15,12 +15,25 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(central_widget)
 
         top_layout = QHBoxLayout()
+
         self.btnToggle = QPushButton("toggle", self)
         self.btnToggle.clicked.connect(self.toggle_fullscreen)
         self.btnToggle.setFixedWidth(100)
         self.btnToggle.setFixedHeight(40)
+
         top_layout.addStretch()
         top_layout.addWidget(self.btnToggle)
+
+        layout2 = QHBoxLayout()
+
+        self.btnClose = QPushButton("close", self)
+        self.btnClose.clicked.connect(self.close_clicked)
+        self.btnClose.setFixedWidth(100)
+        self.btnClose.setFixedHeight(40)
+
+        layout2.addStretch()
+        layout2.addWidget(self.btnClose)
+
 
         bottom_layout = QHBoxLayout()
 
@@ -48,6 +61,7 @@ class MainWindow(QMainWindow):
         self.hLine.setFrameShadow(QFrame.Sunken)
 
         layout.addLayout(top_layout)
+        layout.addLayout(layout2)
         layout.addStretch()
         layout.addWidget(self.hLine)
         layout.addLayout(bottom_layout)
@@ -56,6 +70,9 @@ class MainWindow(QMainWindow):
 
     def toggle_fullscreen(self):
         btnFullScreen(self)
+
+    def close_clicked(self):
+        self.close()
 
     def eventFilter(self, obj, event):
         if obj == self.tbCL and event.type() == QEvent.KeyPress and event.key() == Qt.Key_Return:

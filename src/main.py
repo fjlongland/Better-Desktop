@@ -6,6 +6,9 @@ def main():
 
     app = QApplication(sys.argv)
 
+    with open("src/styles.qss", "r") as stylesheet:
+        app.setStyleSheet(stylesheet.read())
+
     window = MainWindow()
     window.showFullScreen()
     sys.exit(app.exec_())
