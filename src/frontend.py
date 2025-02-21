@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QEvent, QSize, QThread, QTimer
-from .utils import btnFullScreen, execute, listWindows
+from .utils import *
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -118,7 +118,8 @@ class MainWindow(QMainWindow):
         button.setIcon(QIcon("src/graphics/file.png"))
         button.setIconSize(QSize(48, 48))
         button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        button.setFixedSize(75,90)
+        button.setFixedSize(90,90)
+        button.clicked.connect(self.access)
         
         self.glayout.addWidget(button, self.row, self.col)
 
@@ -129,6 +130,15 @@ class MainWindow(QMainWindow):
             self.row+= 1
 
         QTimer.singleShot(50, lambda: self.make_grid(index +1))
+
+    def access(self):
+        sender = self.sender()
+        if sender: 
+            self.text = sender.text()
+            open_file(self.text)
+
+    
+        
 
     
 

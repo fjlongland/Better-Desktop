@@ -38,11 +38,7 @@ def execute(window):
 
 def listWindows():
     desktop = os.path.join(os.path.expanduser("~"), "Desktop")
-    print(desktop) 
     items = os.listdir(desktop)
-
-    #files = [f for f in os.listdir(desktop) if os.path.isfile(os.path.join(desktop, f))]
-    #folders = [f for f in os.listdir(desktop) if os.path.isdir(os.path.join(desktop, f))]
 
     arr = []
 
@@ -53,3 +49,13 @@ def listWindows():
 
 
 
+def open_file(file_name):
+    current_directory = os.path.join(os.path.expanduser("~"), "Desktop")
+    path_to_file = os.path.join(current_directory, file_name)
+
+    if os.path.exists(path_to_file):
+        os.startfile(path_to_file)
+    else:
+        print("error")
+
+    print(path_to_file)
