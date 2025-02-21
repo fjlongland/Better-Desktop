@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QEvent, QSize, QThread
+from PyQt5.QtCore import Qt, QEvent, QSize, QThread, QTimer
 from .utils import btnFullScreen, execute, listWindows
 
 class MainWindow(QMainWindow):
@@ -20,34 +20,14 @@ class MainWindow(QMainWindow):
 
         top_layout = QHBoxLayout()
 
-        glayout = QGridLayout()
-        glayout.setSpacing(20)
+        self.glayout = QGridLayout()
+        self.glayout.setSpacing(20)
+        self.max_columns = 10
+        self.row, self.col = 0, 0
+        self.arr = listWindows()
 
-        max_colums = 10
-
-        row, col = 0, 0
-
-        arr = listWindows()
-
-        for i in arr:
-
-            button = QToolButton(self)
-            button.setText(i)
-            button.setIcon(QIcon("src/graphics/file.png"))
-            button.setIconSize(QSize(48, 48))
-            button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-            button.setFixedSize(75,90)
-            glayout.addWidget(button, row, col)
-
-            col += 1
-
-            if col >= max_colums:
-                col = 0
-                row+= 1
-
-            QThread.msleep(100)
-
-            
+        self.make_grid(0)
+        
 
         top_right_layout = QVBoxLayout()
 
@@ -63,12 +43,13 @@ class MainWindow(QMainWindow):
 
         top_right_layout.addWidget(self.btnToggle)
         top_right_layout.addWidget(self.btnClose)
+        top_right_layout.addStretch()
 
         self.vLinet = QFrame(self)
         self.vLinet.setFrameShape(QFrame.VLine)
         self.vLinet.setFrameShadow(QFrame.Sunken)
 
-        top_layout.addLayout(glayout)
+        top_layout.addLayout(self.glayout)
         top_layout.addStretch()
         top_layout.addWidget(self.vLinet)
         top_layout.addLayout(top_right_layout)
@@ -103,6 +84,7 @@ class MainWindow(QMainWindow):
         bottom_layout.addWidget(self.vLiner)
         bottom_layout.addStretch()
 
+
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         layout.addLayout(top_layout)
@@ -124,6 +106,30 @@ class MainWindow(QMainWindow):
             return True
         return super().eventFilter(obj, event)
     
+
+
+    def make_grid(self, index):
+
+        if index >= len(self.arr):
+            return
+
+        button = QToolButton(self)
+        button.setText(self.arr[index])
+        button.setIcon(QIcon("src/graphics/file.png"))
+        button.setIconSize(QSize(48, 48))
+        button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        button.setFixedSize(75,90)
+        
+        self.glayout.addWidget(button, self.row, self.col)
+
+        self.col += 1
+
+        if self.col >= self.max_columns:
+            self.col = 0
+            self.row+= 1
+
+        QTimer.singleShot(50, lambda: self.make_grid(index +1))
+
     
 
         
