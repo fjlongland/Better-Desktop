@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QEvent
-from .utils import btnFullScreen, execute
+from PyQt5.QtCore import Qt, QEvent, QSize
+from .utils import btnFullScreen, execute, makeList, listWindows
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -19,6 +19,31 @@ class MainWindow(QMainWindow):
 #/////////////////////////////////////////////////////////////////////////////////////
 
         top_layout = QHBoxLayout()
+
+        glayout = QGridLayout()
+
+        max_colums = 10
+
+        row, col = 0, 0
+
+        arr = listWindows()
+
+        for i in arr:
+
+            button = QToolButton(self)
+            button.setText(i)
+            button.setIcon(QIcon("src/graphics/green square.png"))
+            button.setIconSize(QSize(48, 48))
+            button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+            glayout.addWidget(button, row, col)
+
+            col += 1
+
+            if col >= max_colums:
+                col = 0
+                row+= 1
+
+            
 
         top_right_layout = QVBoxLayout()
 
@@ -39,6 +64,7 @@ class MainWindow(QMainWindow):
         self.vLinet.setFrameShape(QFrame.VLine)
         self.vLinet.setFrameShadow(QFrame.Sunken)
 
+        top_layout.addLayout(glayout)
         top_layout.addStretch()
         top_layout.addWidget(self.vLinet)
         top_layout.addLayout(top_right_layout)
@@ -94,4 +120,6 @@ class MainWindow(QMainWindow):
         return super().eventFilter(obj, event)
     
     
+
+        
         

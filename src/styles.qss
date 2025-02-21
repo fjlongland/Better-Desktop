@@ -15,5 +15,14 @@ QPushButton {
     color: #EEEEEE
 }
 QPushButton:hover{
-    background: #111111
+    background: #111111;
+}
+
+QToolButton {
+    background-color: #000000;
+    border radius: 0px;
+    color: #EEEEEE
+}
+QToolButton:hover {
+    background-color: #111111;
 }

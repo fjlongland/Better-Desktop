@@ -1,4 +1,6 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QPushButton
 import os
 
 
@@ -39,20 +41,15 @@ def listWindows():
     print(desktop) 
     items = os.listdir(desktop)
 
-    files = [f for f in os.listdir(desktop) if os.path.isfile(os.path.join(desktop, f))]
-    folders = [f for f in os.listdir(desktop) if os.path.isdir(os.path.join(desktop, f))]
-
-    print("\nFiles: ")
-    for file in files:
-        print(file)
-
-    print("\nFolders:")
-    for folder in folders:
-        print(folder)
+    #files = [f for f in os.listdir(desktop) if os.path.isfile(os.path.join(desktop, f))]
+    #folders = [f for f in os.listdir(desktop) if os.path.isdir(os.path.join(desktop, f))]
 
     arr = []
 
     for item in items:
         arr.append(f"{item}     ")
-
     
+    return items
+
+
+
