@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QEvent, QSize
-from .utils import btnFullScreen, execute, makeList, listWindows
+from PyQt5.QtCore import Qt, QEvent, QSize, QThread
+from .utils import btnFullScreen, execute, listWindows
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,6 +21,7 @@ class MainWindow(QMainWindow):
         top_layout = QHBoxLayout()
 
         glayout = QGridLayout()
+        glayout.setSpacing(20)
 
         max_colums = 10
 
@@ -32,9 +33,10 @@ class MainWindow(QMainWindow):
 
             button = QToolButton(self)
             button.setText(i)
-            button.setIcon(QIcon("src/graphics/green square.png"))
+            button.setIcon(QIcon("src/graphics/file.png"))
             button.setIconSize(QSize(48, 48))
             button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+            button.setFixedSize(75,90)
             glayout.addWidget(button, row, col)
 
             col += 1
@@ -42,6 +44,8 @@ class MainWindow(QMainWindow):
             if col >= max_colums:
                 col = 0
                 row+= 1
+
+            QThread.msleep(100)
 
             
 
@@ -82,6 +86,7 @@ class MainWindow(QMainWindow):
         self.tbCL = QTextEdit(self)
         self.tbCL.setGeometry(50, 50, 300, 300)
         self.tbCL.installEventFilter(self)
+        self.tbCL.setFixedSize(500, 500)
         self.tbCL.setPlainText("./Desktop ~")
 
         self.vLinel = QFrame(self)
