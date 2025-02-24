@@ -10,30 +10,52 @@ def btnFullScreen(window):
     else:
         window.showFullScreen()
 
+
+
 def execute(window):
         
     text = window.tbCL.toPlainText()
     lastLine = text.split("\n")[-1]
 
-    command = lastLine.split("~")[-1]
+    inp = lastLine.split("~")[-1]
 
-    window.tbCL.append("running script...")
+    commands = inp.split(" ")
+    command = commands[0].lower()
+
+    if len(commands) >= 2:
+        param = commands[1]
 
 #/////////////////////////////////////////////////////////////////////////////////
 
     match command:
         case "test":
-            print("it works.")
+            ret = "It is Working :)"
         
+        case "help":
+            ret = "current functioning commands are:\ntest\thelp\tls\tcd"
+
+        case "ls":
+            ret = '\t\t'.join(listWindows())
+
+        case "cd":
+            open_file(param)
+
         case _:
-            print("invalid input.")
+            ret = "something went wrong, use command 'help' for more information."
         
 #//////////////////////////////////////////////////////////////////////////////////
+
+    window.tbCL.append("")
+
+    window.tbCL.append(ret)
+
     window.tbCL.append("")
     window.tbCL.append("")
     window.tbCL.insertPlainText("./Desktop ~")
 
     print(lastLine)
+    
+    
 
 
 def listWindows():
